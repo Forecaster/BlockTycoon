@@ -4,6 +4,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.Logger;
 import org.towerofawesome.init.ModBlocks;
 
 /**
@@ -14,11 +15,13 @@ public class BlockTycoon
 {
   @Mod.Instance()
   public static BlockTycoon instance;
+  public static Logger log;
 
   @Mod.EventHandler
   public void preInit(FMLPreInitializationEvent event)
   {
-    References.log("PreInit stuff!");
+    log = event.getModLog();
+    log.info("PreInit!");
     ModBlocks.init();
     //ModTileEntities.init();
   }
@@ -26,12 +29,10 @@ public class BlockTycoon
   @Mod.EventHandler
   public void init(FMLInitializationEvent event)
   {
-    References.log("Init BlockTycoon!");
   }
 
   @Mod.EventHandler
   public void postInit(FMLPostInitializationEvent event)
   {
-    References.log("PostInit BlockTycoon!");
   }
 }

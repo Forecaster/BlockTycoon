@@ -1,6 +1,7 @@
 package org.towerofawesome.init;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import org.towerofawesome.BlockTycoon;
 import org.towerofawesome.References;
 import org.towerofawesome.tileentity.TileEntityGenerator;
 
@@ -12,6 +13,6 @@ public class ModTileEntities
   public static void init()
   {
     GameRegistry.registerTileEntity(TileEntityGenerator.class, References.MOD_ID + ":generator");
-    References.log("Register TileEntity \"generator\"");
+    BlockTycoon.log.info("Register TileEntity \"generator\"");
   }
 }

@@ -2,7 +2,7 @@ package org.towerofawesome.init;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.material.Material;
-import org.towerofawesome.References;
+import org.towerofawesome.BlockTycoon;
 import org.towerofawesome.block.BlockGenerator;
 
 /**
@@ -14,8 +14,8 @@ public class ModBlocks
 
   public static void init()
   {
-    References.log("Registering blocks!");
     GameRegistry.registerBlock(generator, generator.getUnlocalizedName());
-    References.log("Register " + generator.getUnlocalizedName());
+    BlockTycoon.log.info("Registering blocks!");
+    BlockTycoon.log.info("Register " + generator.getUnlocalizedName());
   }
 }

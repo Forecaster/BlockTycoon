@@ -3,6 +3,7 @@ package org.towerofawesome.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import org.towerofawesome.BlockTycoon;
 import org.towerofawesome.References;
 
 /**
@@ -17,7 +18,7 @@ public class BlockGenerator extends Block
     this.setBlockTextureName(References.MOD_ID + ":" + unlocalizedName);
     this.setBlockUnbreakable();
     this.setCreativeTab(CreativeTabs.tabRedstone);
-    References.log("Create new block with texture name: " + References.MOD_ID + ":" + unlocalizedName);
+    BlockTycoon.log.info("Create new block with texture name: " + References.MOD_ID + ":" + unlocalizedName);
   }
 
   //@Override
