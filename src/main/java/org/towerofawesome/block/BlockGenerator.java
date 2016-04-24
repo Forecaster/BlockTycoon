@@ -3,6 +3,7 @@ package org.towerofawesome.block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import org.towerofawesome.BlockTycoon;
@@ -32,5 +33,13 @@ public class BlockGenerator extends BlockTycoonBlock implements ITileEntityProvi
   {
     BlockTycoon.log.info("Create new TileEntity!");
     return new TileEntityGenerator();
+  }
+
+  @Override
+  public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float facing, float angle, float angle2)
+  {
+    TileEntityGenerator generator = (TileEntityGenerator) world.getTileEntity(x, y, z);
+    generator.lastClicked(player);
+    return true;
   }
 }
