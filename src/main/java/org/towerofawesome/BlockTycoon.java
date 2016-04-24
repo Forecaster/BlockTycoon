@@ -6,6 +6,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 import org.towerofawesome.init.ModBlocks;
+import org.towerofawesome.init.ModTileEntities;
 
 /**
  * Created by Forecaster on 20/04/2016.
@@ -23,7 +24,7 @@ public class BlockTycoon
     log = event.getModLog();
     log.info("PreInit!");
     ModBlocks.init();
-    //ModTileEntities.init();
+    ModTileEntities.init();
   }
 
   @Mod.EventHandler
