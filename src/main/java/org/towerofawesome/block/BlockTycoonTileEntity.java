@@ -2,20 +2,24 @@ package org.towerofawesome.block;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.tileentity.TileEntity;
+import org.towerofawesome.References;
 
 /**
  * Created by Forecaster on 23/04/2016.
  */
-public abstract class BlockTycoonTileEntity extends BlockContainer
+public class BlockTycoonTileEntity extends TileEntity implements IUpdatePlayerListBox
 {
-  public BlockTycoonTileEntity(Material material)
+  @Override
+  public boolean canUpdate()
   {
-    super(material);
-    this.setBlockName("generator");
+    return true;
   }
 
-  public BlockTycoonTileEntity()
+  @Override
+  public void update()
   {
-    this(Material.iron);
+
   }
 }

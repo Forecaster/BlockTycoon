@@ -13,6 +13,6 @@ public class ModTileEntities
   public static void init()
   {
     GameRegistry.registerTileEntity(TileEntityGenerator.class, References.MOD_ID + ":generator");
-    BlockTycoon.log.info("Register TileEntity \"generator\"");
+    BlockTycoon.log.info("Register TileEntity \"" + References.MOD_ID + "generator\"");
   }
 }
