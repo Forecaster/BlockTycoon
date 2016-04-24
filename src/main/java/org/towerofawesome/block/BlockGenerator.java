@@ -24,12 +24,13 @@ public class BlockGenerator extends BlockTycoonBlock implements ITileEntityProvi
 
     this.isBlockContainer = true;
 
-    BlockTycoon.log.info("Create new block with texture name: " + References.MOD_ID + ":" + unlocalizedName);
+    BlockTycoon.log.info("Create new instance block with texture name: " + References.MOD_ID + ":" + unlocalizedName);
   }
 
   @Override
   public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
   {
+    BlockTycoon.log.info("Create new TileEntity!");
     return new TileEntityGenerator();
   }
 }
