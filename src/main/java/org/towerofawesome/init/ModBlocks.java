@@ -10,12 +10,12 @@ import org.towerofawesome.block.BlockGenerator;
  */
 public class ModBlocks
 {
-  private static final BlockGenerator generator = new BlockGenerator("generator", Material.iron);
+  private static BlockGenerator generator;
 
   public static void init()
   {
-    GameRegistry.registerBlock(generator, generator.getUnlocalizedName());
     BlockTycoon.log.info("Registering blocks!");
+    GameRegistry.registerBlock(generator = new BlockGenerator("generator", Material.iron), generator.getUnlocalizedName());
     BlockTycoon.log.info("Register " + generator.getUnlocalizedName());
   }
 }

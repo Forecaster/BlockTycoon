@@ -1,6 +1,5 @@
 package org.towerofawesome.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import org.towerofawesome.BlockTycoon;
@@ -9,7 +8,7 @@ import org.towerofawesome.References;
 /**
  * Created by Forecaster on 22/04/2016.
  */
-public class BlockGenerator extends Block
+public class BlockGenerator extends BlockTycoonBlock
 {
   public BlockGenerator(String unlocalizedName, Material material)
   {
