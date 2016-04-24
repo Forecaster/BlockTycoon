@@ -6,15 +6,16 @@ import org.towerofawesome.References;
 import org.towerofawesome.block.BlockGenerator;
 
 /**
- * Created by Forecaster on 22/04/2016 for the BlockTycoon project.
+ * Created by Forecaster on 22/04/2016.
  */
 public class ModBlocks
 {
-  public static final BlockGenerator generator = new BlockGenerator("generator", Material.iron);
+  private static final BlockGenerator generator = new BlockGenerator("generator", Material.iron);
 
   public static void init()
   {
     References.log("Registering blocks!");
     GameRegistry.registerBlock(generator, generator.getUnlocalizedName());
+    References.log("Register " + generator.getUnlocalizedName());
   }
 }
