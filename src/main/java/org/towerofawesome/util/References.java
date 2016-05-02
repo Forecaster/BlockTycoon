@@ -1,8 +1,4 @@
-package org.towerofawesome;
-
-import cpw.mods.fml.common.FMLLog;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.Logger;
+package org.towerofawesome.util;
 
 /**
  * Created by Forecaster on 22/04/2016.

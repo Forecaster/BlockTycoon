@@ -2,7 +2,7 @@ package org.towerofawesome.init;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import org.towerofawesome.BlockTycoon;
-import org.towerofawesome.References;
+import org.towerofawesome.util.References;
 import org.towerofawesome.tileentity.TileEntityGenerator;
 
 /**

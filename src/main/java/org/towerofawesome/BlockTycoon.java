@@ -6,7 +6,13 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 import org.towerofawesome.init.ModBlocks;
+import org.towerofawesome.init.ModItems;
 import org.towerofawesome.init.ModTileEntities;
+import org.towerofawesome.util.Config;
+import org.towerofawesome.util.References;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * Created by Forecaster on 20/04/2016.
@@ -17,14 +23,21 @@ public class BlockTycoon
   @Mod.Instance()
   public static BlockTycoon instance;
   public static Logger log;
+  public static HashMap<UUID, Controller> controllers = new HashMap<UUID, Controller>();
 
   @Mod.EventHandler
   public void preInit(FMLPreInitializationEvent event)
   {
     log = event.getModLog();
     log.info("PreInit!");
+
+    Config.init(event);
+    ModItems.init();
     ModBlocks.init();
     ModTileEntities.init();
+
+    UUID id = UUID.fromString("b6165c5a-8bc0-40e3-a81d-d30ca49036a9");
+    controllers.put(id, new Controller(id, "someType"));
   }
 
   @Mod.EventHandler

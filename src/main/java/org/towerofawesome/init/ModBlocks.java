@@ -3,19 +3,19 @@ package org.towerofawesome.init;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.material.Material;
 import org.towerofawesome.BlockTycoon;
-import org.towerofawesome.block.BlockGenerator;
+import org.towerofawesome.block.BlockPort;
 
 /**
  * Created by Forecaster on 22/04/2016.
  */
 public class ModBlocks
 {
-  private static BlockGenerator generator;
+  private static BlockPort port;
 
   public static void init()
   {
     BlockTycoon.log.info("Registering blocks!");
-    GameRegistry.registerBlock(generator = new BlockGenerator("generator", Material.iron), generator.getUnlocalizedName());
-    BlockTycoon.log.info("Register " + generator.getUnlocalizedName());
+    GameRegistry.registerBlock(port = new BlockPort("port", Material.iron), port.getUnlocalizedName());
+    BlockTycoon.log.info("Register " + port.getUnlocalizedName());
   }
 }

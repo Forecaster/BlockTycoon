@@ -5,7 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import org.towerofawesome.References;
+import org.towerofawesome.util.References;
 
 /**
  * Created by Forecaster on 22/04/2016.

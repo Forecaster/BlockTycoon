@@ -4,12 +4,10 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import org.towerofawesome.BlockTycoon;
-import org.towerofawesome.References;
-import org.towerofawesome.tileentity.BlockTycoonTileEntity;
+import org.towerofawesome.util.References;
 import org.towerofawesome.tileentity.TileEntityGenerator;
 
 /**
@@ -48,9 +46,8 @@ public class BlockGenerator extends BlockTycoonBlock implements ITileEntityProvi
   @Override
   public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int dunno)
   {
-    BlockTycoonTileEntity te = (BlockTycoonTileEntity) world.getTileEntity(x, y, z);
-    ItemStack stack;
-    stack.drop
-    super.breakBlock(world, pos, blockstate);
+    //BlockTycoonTileEntity te = (BlockTycoonTileEntity) world.getTileEntity(x, y, z);
+    //ItemStack stack;
+    //super.breakBlock(world, pos, blockstate);
   }
 }

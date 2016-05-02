@@ -1,1 +1,3 @@
 tile.blocktycoon:generator.name=Generator Block
+tile.blocktycoon:port.name=IO Port
+item.blocktycoon:crate.name=Crate
