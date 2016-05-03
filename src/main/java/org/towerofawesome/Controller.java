@@ -16,17 +16,13 @@ import java.util.UUID;
 public class Controller
 {
   UUID controllerId;
-  String type;
+  BuildingType type;
   Date lastInput;
-  public List<InventoryBasic> inputs;
-  public List<InventoryBasic> outputs;
 
-  public Controller(UUID id, String type)
+  public Controller(UUID id, BuildingType type)
   {
     this.controllerId = id;
     this.type = type;
-    this.inputs = new ArrayList<InventoryBasic>(4);
-    this.outputs = new ArrayList<InventoryBasic>(4);
   }
 
   public int getInventorySize()
@@ -36,26 +32,7 @@ public class Controller
 
   public int getItemsInInventory(int index, boolean isInput)
   {
-    InventoryBasic inv;
     int items = 0;
-
-    if (isInput)
-      inv = inputs.get(index);
-    else
-      inv = outputs.get(index);
-
-    if (inv != null)
-    {
-      int size = inv.getSizeInventory();
-
-      for (int i = 0; i < size; i++)
-      {
-        ItemStack stack = inv.getStackInSlot(i);
-
-        if (stack != null)
-          items += stack.stackSize;
-      }
-    }
     return items;
   }
 }
