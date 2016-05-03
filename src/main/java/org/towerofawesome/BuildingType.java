@@ -1,7 +1,5 @@
 package org.towerofawesome;
 
-import java.util.ArrayList;
-
 /**
  * Created by Administratör on 2016-05-03.
  */

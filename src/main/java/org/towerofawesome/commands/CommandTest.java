@@ -3,6 +3,7 @@ package org.towerofawesome.commands;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentTranslation;
+import org.towerofawesome.BlockTycoon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class CommandTest implements ICommand
   @Override
   public void processCommand(ICommandSender sender, String[] args)
   {
-
+    sender.addChatMessage(new ChatComponentTranslation("There are " + BlockTycoon.controllers.size() + " controllers."));
   }
 
   @Override

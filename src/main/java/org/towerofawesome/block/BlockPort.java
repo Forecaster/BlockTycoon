@@ -1,13 +1,11 @@
 package org.towerofawesome.block;
 
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import org.towerofawesome.BlockTycoon;
-import org.towerofawesome.tileentity.TileEntityGenerator;
 import org.towerofawesome.tileentity.TileEntityPort;
 import org.towerofawesome.util.References;
 

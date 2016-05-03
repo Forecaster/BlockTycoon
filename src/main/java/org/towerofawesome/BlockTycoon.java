@@ -6,6 +6,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.Logger;
+import org.towerofawesome.commands.CommandControllers;
 import org.towerofawesome.commands.CommandTest;
 import org.towerofawesome.init.ModBlocks;
 import org.towerofawesome.init.ModItems;
@@ -39,7 +40,14 @@ public class BlockTycoon
     ModTileEntities.init();
 
     UUID id = UUID.fromString("b6165c5a-8bc0-40e3-a81d-d30ca49036a9");
-    controllers.put(id, new Controller(id, Config.buildingTypes.get("lumberyard")));
+    try
+    {
+      controllers.put(id, new Controller(id, References.getBuidingType("lumberyard")));
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
   }
 
   @Mod.EventHandler
@@ -56,5 +64,6 @@ public class BlockTycoon
   public void serverLoad(FMLServerStartingEvent event)
   {
     event.registerServerCommand(new CommandTest());
+    event.registerServerCommand(new CommandControllers());
   }
 }

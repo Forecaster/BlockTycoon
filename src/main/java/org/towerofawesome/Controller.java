@@ -1,13 +1,6 @@
 package org.towerofawesome;
 
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.item.ItemStack;
-import scala.util.parsing.json.JSON;
-
-import javax.swing.plaf.basic.BasicComboBoxUI;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -34,5 +27,20 @@ public class Controller
   {
     int items = 0;
     return items;
+  }
+
+  public BuildingType getType()
+  {
+    return this.type;
+  }
+
+  public Product[] getInput()
+  {
+    return this.type.input;
+  }
+
+  public Product[] getOutput()
+  {
+    return this.type.output;
   }
 }

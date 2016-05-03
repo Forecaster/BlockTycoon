@@ -1,15 +1,9 @@
 package org.towerofawesome.tileentity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import org.towerofawesome.BlockTycoon;
-import org.towerofawesome.Controller;
 
 import java.util.UUID;
 
@@ -104,22 +98,23 @@ public class TileEntityPort extends BlockTycoonTileEntity
       //}
       //else
       //  player.addChatMessage(new ChatComponentTranslation("Sorry. I'm already claimed by " + claimedBy.getDisplayName()));
-      this.controllerId = UUID.fromString("b6165c5a-8bc0-40e3-a81d-d30ca49036a9");
-      Controller controller = BlockTycoon.controllers.get(this.controllerId);
 
-      if (controller == null)
-      {
-        BlockTycoon.controllers.put(this.controllerId, new Controller(this.controllerId, "SomeType"));
-        controller = BlockTycoon.controllers.get(this.controllerId);
-      }
+      //this.controllerId = UUID.fromString("b6165c5a-8bc0-40e3-a81d-d30ca49036a9");
+      //Controller controller = BlockTycoon.controllers.get(this.controllerId);
 
-      InventoryBasic inv = controller.inputs.get(0);
+      //if (controller == null)
+      //{
+      //  BlockTycoon.controllers.put(this.controllerId, new Controller(this.controllerId, "SomeType"));
+      //  controller = BlockTycoon.controllers.get(this.controllerId);
+      //}
 
-      if (inv == null)
-        controller.inputs.add(new InventoryBasic("Input", true, 2));
+      //InventoryBasic inv = controller.inputs.get(0);
 
-      int items = controller.getItemsInInventory(0, true);
-      player.addChatMessage(new ChatComponentTranslation("This block contains " + items + " items!"));
+      //if (inv == null)
+      //  controller.inputs.add(new InventoryBasic("Input", true, 2));
+
+      //int items = controller.getItemsInInventory(0, true);
+      //player.addChatMessage(new ChatComponentTranslation("This block contains " + items + " items!"));
     }
   }
 }
