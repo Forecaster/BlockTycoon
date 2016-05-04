@@ -11,11 +11,23 @@ public class Controller
   UUID controllerId;
   BuildingType type;
   Date lastInput;
+  int[] inputs;
+  int[] outputs;
 
   public Controller(UUID id, BuildingType type)
   {
     this.controllerId = id;
     this.type = type;
+
+    for (int i = 0; i < type.input.length; i++)
+    {
+      this.inputs[i] = 0;
+    }
+
+    for (int i = 0; i < type.output.length; i++)
+    {
+      this.outputs[i] = 0;
+    }
   }
 
   public int getInventorySize()
