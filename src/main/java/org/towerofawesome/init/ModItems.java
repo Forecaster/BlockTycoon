@@ -3,6 +3,7 @@ package org.towerofawesome.init;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import org.towerofawesome.item.ItemCrate;
 import org.towerofawesome.util.References;
 
 /**
@@ -10,11 +11,11 @@ import org.towerofawesome.util.References;
  */
 public final class ModItems
 {
-  public static Item itemCrate;
+  public static ItemCrate itemCrate;
 
   public static void init()
   {
-    itemCrate = new Item().setUnlocalizedName("crate").setCreativeTab(CreativeTabs.tabRedstone).setTextureName(References.MOD_ID + ":crate");
-    GameRegistry.registerItem(itemCrate, "crate");
+    itemCrate = new ItemCrate();
+    GameRegistry.registerItem(itemCrate, itemCrate.name);
   }
 }
