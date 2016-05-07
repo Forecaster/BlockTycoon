@@ -1,7 +1,15 @@
 package org.towerofawesome.tileentity;
 
+import com.mojang.authlib.GameProfileRepository;
+import ibxm.Player;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.management.PlayerManager;
+import net.minecraft.server.management.PlayerProfileCache;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import org.towerofawesome.BlockTycoon;
 
@@ -13,60 +21,105 @@ import java.util.UUID;
 public class TileEntityPort extends BlockTycoonTileEntity
 {
   public UUID controllerId;
-  public EntityPlayer claimedBy;
+  public UUID claimedBy;
+  public int selectedOutput = 0;
+
+  public boolean setAddress(UUID address)
+  {
+    this.controllerId = address;
+    return true;
+  }
+
+  public UUID getAddress()
+  {
+    return this.controllerId;
+  }
 
   @Override
   public int getSizeInventory()
   {
-    return BlockTycoon.controllers.get(this.controllerId).getInventorySize();
+    if (this.controllerId != null && BlockTycoon.controllers.containsKey(this.controllerId))
+      return BlockTycoon.controllers.get(this.controllerId).getSizeInventory();
+    else
+      return 0;
   }
 
   @Override
   public ItemStack getStackInSlot(int slot)
   {
-    return null;
+    if (this.controllerId != null && BlockTycoon.controllers.containsKey(this.controllerId))
+      return BlockTycoon.controllers.get(this.controllerId).getStackInSlot(slot);
+    else
+      return null;
   }
 
   @Override
   public ItemStack decrStackSize(int slot, int amount)
   {
-    return null;
+    if (this.controllerId != null && BlockTycoon.controllers.containsKey(this.controllerId))
+    {
+      ItemStack stack = BlockTycoon.controllers.get(this.controllerId).decrStackSize(slot, amount);
+      if (stack != null)
+      {
+        NBTTagCompound tag = stack.getTagCompound();
+        if (tag == null)
+          tag = new NBTTagCompound();
+        tag.setInteger("goods_origin_x", this.xCoord);
+        tag.setInteger("goods_origin_z", this.zCoord);
+        stack.setTagCompound(tag);
+      }
+      return stack;
+    }
+    else
+      return null;
   }
 
   @Override
   public ItemStack getStackInSlotOnClosing(int slot)
   {
-    return null;
+    BlockTycoon.log.info("Something called getStackInSlotOnClosing!");
+    if (this.controllerId != null && BlockTycoon.controllers.containsKey(this.controllerId))
+      return BlockTycoon.controllers.get(this.controllerId).getStackInSlot(slot);
+    else
+      return null;
   }
 
   @Override
   public void setInventorySlotContents(int slot, ItemStack stack)
   {
-
+    BlockTycoon.log.info("Something called setInventorySlotContents!");
+    if (this.controllerId != null && BlockTycoon.controllers.containsKey(this.controllerId))
+      BlockTycoon.controllers.get(this.controllerId).setInventorySlotContents(slot, stack);
   }
 
   @Override
   public String getInventoryName()
   {
-    return null;
+    return "IO Port";
   }
 
   @Override
   public boolean hasCustomInventoryName()
   {
-    return false;
+    return true;
   }
 
   @Override
   public int getInventoryStackLimit()
   {
-    return 0;
+    if (this.controllerId != null && BlockTycoon.controllers.containsKey(this.controllerId))
+      return BlockTycoon.controllers.get(this.controllerId).getInventoryStackLimit();
+    else
+      return 0;
   }
 
   @Override
   public boolean isUseableByPlayer(EntityPlayer player)
   {
-    return false;
+    if (this.controllerId != null && BlockTycoon.controllers.containsKey(this.controllerId))
+      return BlockTycoon.controllers.get(this.controllerId).isUseableByPlayer(player);
+    else
+      return false;
   }
 
   @Override
@@ -84,37 +137,47 @@ public class TileEntityPort extends BlockTycoonTileEntity
   @Override
   public boolean isItemValidForSlot(int slot, ItemStack stack)
   {
-    return false;
+    BlockTycoon.log.info("Port received slot validation check for slot " + slot);
+    if (this.controllerId != null && BlockTycoon.controllers.containsKey(this.controllerId))
+      return BlockTycoon.controllers.get(this.controllerId).isItemValidForSlot(slot, stack);
+    else
+      return false;
   }
 
   public void onClick(World world, EntityPlayer player)
   {
-    if (world.isRemote)
+    if (!world.isRemote)
     {
-      //if (claimedBy == null)
-      //{
-      //  player.addChatMessage(new ChatComponentTranslation("You claimed me!"));
-      //  claimedBy = player;
-      //}
-      //else
-      //  player.addChatMessage(new ChatComponentTranslation("Sorry. I'm already claimed by " + claimedBy.getDisplayName()));
-
-      //this.controllerId = UUID.fromString("b6165c5a-8bc0-40e3-a81d-d30ca49036a9");
-      //Controller controller = BlockTycoon.controllers.get(this.controllerId);
-
-      //if (controller == null)
-      //{
-      //  BlockTycoon.controllers.put(this.controllerId, new Controller(this.controllerId, "SomeType"));
-      //  controller = BlockTycoon.controllers.get(this.controllerId);
-      //}
-
-      //InventoryBasic inv = controller.inputs.get(0);
-
-      //if (inv == null)
-      //  controller.inputs.add(new InventoryBasic("Input", true, 2));
-
-      //int items = controller.getItemsInInventory(0, true);
-      //player.addChatMessage(new ChatComponentTranslation("This block contains " + items + " items!"));
+      if (this.controllerId != null)
+      {
+        BlockTycoon.controllers.get(this.controllerId).doProduction(player);
+        player.addChatMessage(new ChatComponentTranslation("Ran production for linked controller"));
+      }
     }
+  }
+
+  @Override
+  public void readFromNBT(NBTTagCompound compound)
+  {
+    super.readFromNBT(compound);
+    if (compound.hasKey("controller_address"))
+      this.controllerId = UUID.fromString(compound.getString("controller_address"));
+    if (compound.hasKey("claimed_by"))
+      this.claimedBy = UUID.fromString(compound.getString("claimed_by"));
+    if (compound.hasKey("output_index"))
+      this.selectedOutput = compound.getInteger("output_index");
+    else
+      this.selectedOutput = 0;
+  }
+
+  @Override
+  public void writeToNBT(NBTTagCompound compound)
+  {
+    super.writeToNBT(compound);
+    if (this.controllerId != null)
+      compound.setString("controller_address", this.controllerId.toString());
+    if (this.claimedBy != null)
+      compound.setString("claimed_by", this.claimedBy.toString());
+    compound.setInteger("output_index", this.selectedOutput);
   }
 }

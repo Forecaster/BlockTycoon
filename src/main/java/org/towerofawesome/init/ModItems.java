@@ -3,7 +3,9 @@ package org.towerofawesome.init;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import org.towerofawesome.item.ItemChecker;
 import org.towerofawesome.item.ItemCrate;
+import org.towerofawesome.item.ItemLinker;
 import org.towerofawesome.util.References;
 
 /**
@@ -11,11 +13,14 @@ import org.towerofawesome.util.References;
  */
 public final class ModItems
 {
-  public static ItemCrate itemCrate;
+  public static ItemCrate itemCrate = new ItemCrate();
+  public static ItemLinker itemLinker = new ItemLinker();
+  public static ItemChecker itemChecker = new ItemChecker();
 
   public static void init()
   {
-    itemCrate = new ItemCrate();
     GameRegistry.registerItem(itemCrate, itemCrate.name);
+    GameRegistry.registerItem(itemLinker, itemLinker.name);
+    GameRegistry.registerItem(itemChecker, itemChecker.name);
   }
 }

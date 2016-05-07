@@ -8,15 +8,19 @@ public class BuildingType
   public String name;
   public String displayName;
   public int productionRate;
-  public Product[] input;
-  public Product[] output;
+  public Product[] inputs;
+  public Product[] outputs;
+  public int[] inputAmounts;
+  public int[] outputAmounts;
 
-  public BuildingType(String name, String displayName, int productionRate, Product[] input, Product[] output)
+  public BuildingType(String name, String displayName, int productionRate, Product[] inputs, Product[] outputs, int[] inputAmounts, int[] outputAmounts)
   {
     this.name = name;
     this.displayName = displayName;
     this.productionRate = productionRate;
-    this.input = input;
-    this.output = output;
+    this.inputs = inputs;
+    this.outputs = outputs;
+    this.inputAmounts = inputAmounts;
+    this.outputAmounts = outputAmounts;
   }
 }

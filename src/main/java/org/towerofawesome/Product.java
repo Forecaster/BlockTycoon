@@ -9,13 +9,15 @@ import java.util.List;
 public class Product
 {
   public int volume;
+  public double productionTime;
   public String name;
   public String displayName;
 
-  public Product(String name, String displayName, int volume)
+  public Product(String name, String displayName, int volume, double productionTime)
   {
     this.name = name;
     this.displayName = displayName;
     this.volume = volume;
+    this.productionTime = productionTime;
   }
 }
