@@ -5,13 +5,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentTranslation;
 import org.towerofawesome.init.ModItems;
-import org.towerofawesome.util.Config;
 import org.towerofawesome.util.References;
 import org.towerofawesome.util.Utilities;
 
 import javax.annotation.Nullable;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Forecaster on 29/04/2016 for the BlockTycoon project.
@@ -21,8 +19,8 @@ public class Controller
   UUID controllerId;
   public BuildingType type;
   public long lastInput;
-  public int[] inputs;
-  public int[] outputs;
+  public HashMap<Product, Integer> inputs = new HashMap<Product, Integer>();
+  public HashMap<Product, Integer> outputs = new HashMap<Product, Integer>();
   public int maxCapacityPerInput;
   public int maxCapacityPerOutput;
 
@@ -35,30 +33,12 @@ public class Controller
 
     this.controllerId = id;
     this.type = type;
-    if (type.inputs != null)
-      this.inputs = new int[type.inputs.length];
-    else
-      this.inputs = null;
-    if (type.outputs != null)
-      this.outputs = new int[type.outputs.length];
-    else
-      this.outputs = null;
+    //TODO re-add input output stuff
+  }
 
-    if (this.inputs != null)
-    {
-      for (int i = 0; i < type.inputs.length; i++)
-      {
-        this.inputs[i] = 10;
-      }
-    }
-
-    if (this.outputs != null)
-    {
-      for (int i = 0; i < type.outputs.length; i++)
-      {
-        this.outputs[i] = 10;
-      }
-    }
+  public void doProduction()
+  {
+    this.doProduction(null);
   }
 
   public void doProduction(@Nullable EntityPlayer player)
@@ -68,12 +48,23 @@ public class Controller
     long maxRunTime = (now - this.lastInput) / 1000;
     this.lastInput = now;
 
-    int maxInputIndex = Utilities.getIndexOfHighestValue(this.inputs);
-    double maxInputProductionTime = this.type.inputs[maxInputIndex].productionTime;
+    Product lowestValueIndex = Utilities.getIndexOfLowestValue(this.inputs);
+
+    int minInputStoredAmount = -1;
+    int maxProductionTime = -1;
+    double minInputProductionTime;
+    if (lowestValueIndex != null)
+    {
+      minInputProductionTime = this.type.inputs.get(this.type.inputs.indexOf(lowestValueIndex)).productionTime;
+      minInputStoredAmount = this.inputs.get(lowestValueIndex);
+
+      maxProductionTime = (int) (minInputStoredAmount / minInputProductionTime);
+    }
 
     if (player != null)
     {
-      player.addChatMessage(new ChatComponentTranslation("Simulating production for " + maxRunTime + " seconds"));
+      player.addChatMessage(new ChatComponentTranslation("Production would run for at most " + maxProductionTime + " seconds."));
+      player.addChatMessage(new ChatComponentTranslation("Smallest stack contains " + minInputStoredAmount + " items"));
     }
   }
 
@@ -93,12 +84,12 @@ public class Controller
     return this.type;
   }
 
-  public Product[] getInputs()
+  public List<Product> getInputs()
   {
     return this.type.inputs;
   }
 
-  public Product[] getOutputs()
+  public List<Product> getOutputs()
   {
     return this.type.outputs;
   }
@@ -106,7 +97,7 @@ public class Controller
   public int getSizeInventory()
   {
     if (this.inputs != null)
-      return this.inputs.length;
+      return this.inputs.keySet().toArray().length;
     else
       return 0;
   }
@@ -118,22 +109,22 @@ public class Controller
 
   public ItemStack decrStackSize(int slot, int amount)
   {
-    BlockTycoon.log.info("Something requested " + amount + " from slot " + slot);
-    for (int i = 0; i < outputs.length; i++)
-    {
-      if (outputs[i] > 0)
-      {
-        outputs[i]--;
-        ItemStack stack = new ItemStack(ModItems.itemCrate);
-        stack.stackSize = 1;
-        NBTTagCompound tag = stack.getTagCompound();
-        if (tag == null)
-          tag = new NBTTagCompound();
-        tag.setString("goods_type", this.type.outputs[i].name);
-        stack.setTagCompound(tag);
-        return stack;
-      }
-    }
+    //BlockTycoon.log.info("Something requested " + amount + " from slot " + slot);
+    //for (int i = 0; i < outputs.length; i++)
+    //{
+    //  if (outputs[i] > 0)
+    //  {
+    //    outputs[i]--;
+    //    ItemStack stack = new ItemStack(ModItems.itemCrate);
+    //    stack.stackSize = 1;
+    //    NBTTagCompound tag = stack.getTagCompound();
+    //    if (tag == null)
+    //      tag = new NBTTagCompound();
+    //    tag.setString("goods_type", this.type.outputs.get(i).name);
+    //    stack.setTagCompound(tag);
+    //    return stack;
+    //  }
+    //}
     return null;
   }
 
@@ -185,7 +176,7 @@ public class Controller
       NBTTagCompound tag = stack.getTagCompound();
       if (tag != null && tag.hasKey("goods_type"))
       {
-        if (this.type.inputs[slot].name.equals(tag.getString("goods_type")))
+        if (this.type.inputs.get(slot).name.equals(tag.getString("goods_type")))
         {
           BlockTycoon.log.info("Goods of type \"" + tag.getString("goods_type") + "\" is valid for slot " + slot);
           return true;

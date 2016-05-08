@@ -134,27 +134,27 @@ public class CommandControllers implements ICommand
         if (controllers.containsKey(address))
         {
           Controller myController = controllers.get(UUID.fromString(args[1]));
-          Product[] input = myController.getInputs();
-          Product[] output = myController.getOutputs();
+          List<Product> input = myController.getInputs();
+          List<Product> output = myController.getOutputs();
 
           sender.addChatMessage(new ChatComponentTranslation(myController.getType().displayName));
-          if (input != null && input.length > 0)
+          if (input != null && input.size() > 0)
           {
             sender.addChatMessage(new ChatComponentTranslation("Input:"));
-            for (int i = 0; i < input.length; i++)
+            for (int i = 0; i < input.size(); i++)
             {
-              sender.addChatMessage(new ChatComponentTranslation(input[i].displayName + ": " + myController.inputs[i]));
+              sender.addChatMessage(new ChatComponentTranslation(input.get(i).displayName + ": " + input.get(i)));
             }
           }
           else
             sender.addChatMessage(new ChatComponentTranslation("This building has no inputs."));
 
-          if (output != null && output.length > 0)
+          if (output != null && output.size() > 0)
           {
             sender.addChatMessage(new ChatComponentTranslation("Output:"));
-            for (int i = 0; i < output.length; i++)
+            for (int i = 0; i < output.size(); i++)
             {
-              sender.addChatMessage(new ChatComponentTranslation(output[i].displayName + ": " + myController.outputs[i]));
+              sender.addChatMessage(new ChatComponentTranslation(output.get(i).displayName + ": " + output.get(i)));
             }
           }
           else

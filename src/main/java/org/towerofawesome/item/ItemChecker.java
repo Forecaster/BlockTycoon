@@ -13,6 +13,7 @@ import org.towerofawesome.Product;
 import org.towerofawesome.tileentity.TileEntityPort;
 import org.towerofawesome.util.References;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -51,22 +52,22 @@ public class ItemChecker extends Item
           if (BlockTycoon.controllers.containsKey(port.controllerId))
           {
             Controller controller = BlockTycoon.controllers.get(port.controllerId);
-            Product[] input = controller.type.inputs;
-            Product[] output = controller.type.outputs;
-            int[] inputs = controller.inputs;
-            int[] outputs = controller.outputs;
+            List<Product> input = controller.type.inputs;
+            List<Product> output = controller.type.outputs;
+            HashMap<Product, Integer> inputs = controller.inputs;
+            HashMap<Product, Integer> outputs = controller.outputs;
 
             player.addChatMessage(new ChatComponentTranslation("Type: " + controller.type.displayName));
             player.addChatMessage(new ChatComponentTranslation("Address: " + port.controllerId.toString()));
             player.addChatMessage(new ChatComponentTranslation("Inputs:"));
-            for (int i = 0; i < input.length; i++)
+            for (int i = 0; i < input.size(); i++)
             {
-              player.addChatMessage(new ChatComponentTranslation(input[i].displayName + ": " + inputs[i]));
+              player.addChatMessage(new ChatComponentTranslation(input.get(i).displayName + ": " + inputs.get(input.get(i))));
             }
             player.addChatMessage(new ChatComponentTranslation("Outputs:"));
-            for (int i = 0; i < output.length; i++)
+            for (int i = 0; i < output.size(); i++)
             {
-              player.addChatMessage(new ChatComponentTranslation(output[i].displayName + ": " + outputs[i]));
+              player.addChatMessage(new ChatComponentTranslation(output.get(i).displayName + ": " + outputs.get(output.get(i))));
             }
           }
           else
