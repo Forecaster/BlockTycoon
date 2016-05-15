@@ -13,6 +13,8 @@ import java.util.*;
 
 /**
  * Created by Forecaster on 29/04/2016 for the BlockTycoon project.
+ * MinecraftServer#getPlayerList().getOppedPlayers().getEntry(EntityPlayer#getGameProfile) != null
+ * EntityPlayerMP#interactionManager.getGameType()
  */
 public class Controller
 {
