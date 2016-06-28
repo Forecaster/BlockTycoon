@@ -60,15 +60,25 @@ public class ItemChecker extends Item
             player.addChatMessage(new ChatComponentTranslation("Type: " + controller.type.displayName));
             player.addChatMessage(new ChatComponentTranslation("Address: " + port.controllerId.toString()));
             player.addChatMessage(new ChatComponentTranslation("Inputs:"));
-            for (int i = 0; i < input.size(); i++)
+            if (input != null)
             {
-              player.addChatMessage(new ChatComponentTranslation(input.get(i).displayName + ": " + inputs.get(input.get(i))));
+              for (Product anInput : input)
+              {
+                player.addChatMessage(new ChatComponentTranslation(anInput.displayName + ": " + inputs.get(anInput)));
+              }
             }
+            else
+              player.addChatMessage(new ChatComponentTranslation("No inputs for this controller."));
             player.addChatMessage(new ChatComponentTranslation("Outputs:"));
-            for (int i = 0; i < output.size(); i++)
+            if (outputs != null)
             {
-              player.addChatMessage(new ChatComponentTranslation(output.get(i).displayName + ": " + outputs.get(output.get(i))));
+              for (Product anOutput : output)
+              {
+                player.addChatMessage(new ChatComponentTranslation(anOutput.displayName + ": " + outputs.get(anOutput)));
+              }
             }
+            else
+              player.addChatMessage(new ChatComponentTranslation("No outputs for this controller."));
           }
           else
             player.addChatMessage(new ChatComponentTranslation("Port linked to invalid address."));

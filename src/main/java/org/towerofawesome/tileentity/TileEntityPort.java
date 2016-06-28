@@ -12,6 +12,7 @@ import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import org.towerofawesome.BlockTycoon;
+import org.towerofawesome.Controller;
 
 import java.util.UUID;
 
@@ -150,9 +151,16 @@ public class TileEntityPort extends BlockTycoonTileEntity
     {
       if (this.controllerId != null)
       {
-        BlockTycoon.controllers.get(this.controllerId).doProduction(player);
-        player.addChatMessage(new ChatComponentTranslation("Ran production for linked controller"));
+        Controller c = BlockTycoon.controllers.get(this.controllerId);
+        if (c != null)
+        {
+          c.doProduction(player);
+          player.addChatMessage(new ChatComponentTranslation("Ran production for linked controller: " + this.controllerId));
+        }
+        else
+          player.addChatMessage(new ChatComponentTranslation("The address " + this.controllerId + " does not match any controller."));
       }
+      else player.addChatMessage(new ChatComponentTranslation("No address assigned to this port."));
     }
   }
 

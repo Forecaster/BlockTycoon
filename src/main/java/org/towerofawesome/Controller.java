@@ -61,13 +61,15 @@ public class Controller
       minInputStoredAmount = this.inputs.get(lowestValueIndex);
 
       maxProductionTime = (int) (minInputStoredAmount / minInputProductionTime);
-    }
 
-    if (player != null)
-    {
-      player.addChatMessage(new ChatComponentTranslation("Production would run for at most " + maxProductionTime + " seconds."));
-      player.addChatMessage(new ChatComponentTranslation("Smallest stack contains " + minInputStoredAmount + " items"));
+      if (player != null)
+      {
+        player.addChatMessage(new ChatComponentTranslation("Production would run for at most " + maxProductionTime + " seconds."));
+        player.addChatMessage(new ChatComponentTranslation("Smallest stack contains " + minInputStoredAmount + " items"));
+      }
     }
+    else if (player != null)
+      player.addChatMessage(new ChatComponentTranslation("Was not able to find lowest value in inputs."));
   }
 
   public boolean setAddress(UUID address)
